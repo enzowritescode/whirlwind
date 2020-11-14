@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Rotates IP Address of VPN server
+Resources:
+  Whirlwind:
+    Type: AWS::Serverless::Function
+    Properties:
+      Environment:
+        Variables:
+          HOSTED_ZONE_ID: '{{resolve:ssm:whirlwind.hosted_zone:1}}'
+          INSTANCE_ID: '{{resolve:ssm:whirlwind.instance_id:1}}'
+          SNS_TOPIC: '{{resolve:ssm:whirlwind.sns_topic:1}}'
+      Handler: lambda_handler
+      Runtime: python3.8
+      CodeUri: ./src
+      Timeout: 7
+      Role: '{{resolve:ssm:whirlwind.iam_role:1}}'
+  DailyTrigger:
+    Type: AWS::Events::Rule
+    Properties: 
+      Description: "Nightly IP address rotation"
+      Name: "nightly-rotate-ip-address"
+      ScheduleExpression: "cron(0 7 * * ? *)"
+      Targets: 
+        - Arn: !GetAtt Whirlwind.Arn
+          Id: "Whirlwind"
+
+ 
