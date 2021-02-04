@@ -6,9 +6,11 @@
 #    \_/\_/ |_| |_|_|_|  |_| \_/\_/ |_|_| |_|\__,_|
 
 import os
-import IpAddressChanger
+from ip_address_changer import IpAddressChanger
 
 def lambda_handler(event, context):
+    print("lambda_handler called")
+    
     instance_id = os.getenv('INSTANCE_ID')
     hosted_zone_id = os.getenv('HOSTED_ZONE_ID')
     sns_topic = os.getenv('SNS_TOPIC')
@@ -16,4 +18,5 @@ def lambda_handler(event, context):
     ip_address_changer = IpAddressChanger(instance_id, hosted_zone_id, sns_topic)
     ip_address_changer.execute()
     
+    print("lambda_handler executed")
     return

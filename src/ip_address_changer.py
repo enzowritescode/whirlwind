@@ -66,6 +66,7 @@ class IpAddressChanger:
         return False
 
     def execute(self):
+        print("Attempting IP address rotation")
         # get current IP address and find matching DNS record
         old_ip_adrr_info = self._fetch_current_ip_allocation_id()
         old_ip_address = old_ip_adrr_info['PublicIp']
@@ -105,3 +106,5 @@ class IpAddressChanger:
                 Subject='VPN IP Address Rotate Failed')
 
             return
+
+        print("Successfully rotated IP address")

@@ -1,0 +1,8 @@
+{
+	"Parameters": {
+		"HostedZone": "Z1Y3PHAV3RO3OE",
+		"InstanceId": "i-0f7400df6cc3b2d49",
+		"SnsTopic": "arn:aws:sns:us-west-2:839399379318:vpn-rotate-ip-address-notifications",
+		"IamRole": "arn:aws:iam::839399379318:role/service-role/rotate-ip-address-role-96w6pc67"
+	}
+}
